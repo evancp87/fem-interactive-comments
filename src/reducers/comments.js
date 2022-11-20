@@ -1,12 +1,13 @@
+/* eslint-disable no-case-declarations */
 import {
   RECEIVE_COMMENTS,
   ADD_COMMENT,
   REMOVE_COMMENT,
   UPDATE_COMMENT,
   VOTE_COMMENT,
-} from "../actions/comments";
+} from "../actions/commentsActions";
 
-export default function comments(state = {}, action) {
+export default function comments(state = [], action) {
   switch (action.type) {
     case RECEIVE_COMMENTS:
       return {

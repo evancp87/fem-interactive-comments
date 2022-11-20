@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 function formatDate(timestamp) {
   const day = new Date(timestamp);
   const time = day.tocLocaleTimeString("en-GB");

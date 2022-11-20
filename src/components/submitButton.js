@@ -1,9 +1,7 @@
-import React from 'react';
-
+import React from "react";
 
 function SubmitButton() {
-
-    // return ()
+  return <div>Submit</div>;
 }
 
-export default SubmitButton
+export default SubmitButton;

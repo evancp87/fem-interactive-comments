@@ -1,9 +1,7 @@
-import React from 'react';
-
+import React from "react";
 
 function EditButton() {
-
-    // return ()
+  return <div></div>;
 }
 
-export default EditButton
+export default EditButton;

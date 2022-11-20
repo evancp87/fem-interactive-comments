@@ -6,10 +6,16 @@ import Footer from "./components/Footer";
 import Post from "./components/Post";
 import AddPost from "./components/AddPost";
 import Error404 from "./components/Error404";
-
+import { handleInitialData } from "../src/actions/shared";
+import { useEffect } from "react";
 function App() {
+  useEffect(() => {
+    fetch(handleInitialData());
+  }, []);
+
+  console.log(handleInitialData());
   return (
-    <div className="App">
+    <div className="App flex flex-col justify-center">
       <Nav />
       <Router>
         <Routes>

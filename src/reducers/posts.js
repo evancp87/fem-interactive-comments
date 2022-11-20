@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 import {
   RECEIVE_POSTS,
   ADD_POST,
@@ -10,9 +11,9 @@ import {
   SORT_POSTS_BY_LOWEST_VOTES,
   SORT_POSTS_BY_MOST_RECENT,
   SORT_POSTS_BY_OLDEST,
-} from "../actions/posts";
+} from "../actions/postsActions";
 
-export default function posts(state = {}, action) {
+export default function posts(state = [], action) {
   switch (action.type) {
     case RECEIVE_POSTS:
       return {

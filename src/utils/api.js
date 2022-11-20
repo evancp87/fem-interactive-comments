@@ -7,6 +7,13 @@ const headers = {
 
 // get  /categories
 
+export const generateUID = () => {
+  return (
+    Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15)
+  );
+};
+
 export const getAllCategories = () => {
   fetch(`${api}/categories`, { headers })
     .then((res) => res.json())
@@ -90,6 +97,13 @@ export const getCommentsByPostId = (id) => {
     .then((data) => data);
 };
 
+// single comment details
+// get posts/:id/comments
+export const getCommentDetail = (comment) => {
+  fetch(`${api}/comments/${comment.id}`, { headers })
+    .then((res) => res.json)
+    .then((data) => data);
+};
 // post /comments
 export const addComment = (newComment) => {
   fetch(`${api}/comments/`, {
@@ -133,4 +147,13 @@ export const deleteComment = (comment) => {
   })
     .then((res) => res.json())
     .then((data) => data);
+};
+
+export const getInitialData = () => {
+  return Promise.all([getAllCategories(), getPosts()]).then(
+    ([categories, posts]) => ({
+      categories,
+      posts,
+    })
+  );
 };

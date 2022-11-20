@@ -1,8 +1,14 @@
-import React, { useState, useSelector, useDispatch } from "react";
-import Modal from "./Modal";
+import React from "react";
+
+// import React, { useState, useSelector, useDispatch } from "react";
+// import Modal from "./Modal";
 
 function AddPost() {
-  // return ()
+  return (
+    <div>
+      <button>+</button>
+    </div>
+  );
 }
 
 export default AddPost;

@@ -1,9 +1,13 @@
-import React from 'react';
-
-
+import React from "react";
+import { BsFillTrashFill } from "react-icons/bs";
 function DeleteButton() {
-
-    // return ()
+  return (
+    <div>
+      <button>
+        <BsFillTrashFill />
+      </button>
+    </div>
+  );
 }
 
-export default DeleteButton
+export default DeleteButton;
