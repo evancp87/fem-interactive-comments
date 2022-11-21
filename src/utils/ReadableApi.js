@@ -17,6 +17,7 @@ export const generateUID = () => {
 export const getAllCategories = () => {
   fetch(`${api}/categories`, { headers })
     .then((res) => res.json())
+
     .then((data) => data.categories);
 };
 
@@ -147,13 +148,4 @@ export const deleteComment = (comment) => {
   })
     .then((res) => res.json())
     .then((data) => data);
-};
-
-export const getInitialData = () => {
-  return Promise.all([getAllCategories(), getPosts()]).then(
-    ([categories, posts]) => ({
-      categories,
-      posts,
-    })
-  );
 };

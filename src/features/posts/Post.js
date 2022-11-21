@@ -3,7 +3,7 @@ import React from "react";
 // import DeleteButton from "./DeleteButton";
 // import EditButton from "./EditButton";
 
-import Vote from "./Vote";
+import Vote from "../../components/Vote";
 function Post() {
   return (
     <article className="max-w-6xl shadow-xl w-[200px] hover:shadow-2xl sm:w-[300px] md:w-[500px] lg:w-[900px] h-auto rounded-md bg-slate-100 h-50 p-2.5 flex flex-col sm:flex-row md:flex-row lg:flex-row justify-between space-x-4  ">

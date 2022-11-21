@@ -1,7 +1,7 @@
 import React from "react";
-import CategoryList from "../features/categories/CategoryList";
-import PostList from "../features/posts/PostList";
-import Filters from "./Filters";
+import CategoryList from "../categories/CategoryList";
+import PostList from "../posts/PostList";
+import Filters from "../../components/Filters";
 import { MdAddCircle } from "react-icons/md";
 
 function Dashboard() {

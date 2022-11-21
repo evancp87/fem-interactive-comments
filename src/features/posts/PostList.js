@@ -12,13 +12,13 @@ import { useSelector, useDispatch } from "react-redux";
 //   sortPostsRecent,
 //   sortPostsOld,
 // } from "../actions/postsActions";
-import Post from "../../components/Post";
+import Post from "./Post";
 
 function PostList() {
   const posts = useSelector((state) => state.posts);
   console.log(posts);
   const dispatch = useDispatch();
-  useEffect(() => dispatch(receivePosts(posts)), [dispatch]);
+  // useEffect(() => dispatch(receivePosts(posts)), [dispatch]);
   return (
     <section className="mt-4 flex items-center flex-col">
       {posts &&

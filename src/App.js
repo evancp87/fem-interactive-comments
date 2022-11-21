@@ -1,19 +1,13 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import React from "react";
 import Nav from "./components/Nav";
-import Dashboard from "./components/Dashboard";
+import Dashboard from "./features/screens/Dashboard";
 import Footer from "./components/Footer";
-import Post from "./components/Post";
-import AddPost from "./components/AddPost";
-import Error404 from "./components/Error404";
-import { handleInitialData } from "../src/actions/shared";
-import { useEffect } from "react";
-function App() {
-  useEffect(() => {
-    fetch(handleInitialData());
-  }, []);
+import Post from "./features/posts/Post";
+import AddPost from "./features/posts/AddPost";
+import Error404 from "./features/screens/Error404";
 
-  console.log(handleInitialData());
+function App() {
   return (
     <div className="App flex flex-col justify-center">
       <Nav />
