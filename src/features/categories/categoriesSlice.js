@@ -2,18 +2,26 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 // const url = "htt[://localhost:3001";
 // import data from api and put as value in initial state
 import * as ReadableApi from "../../utils/ReadableApi";
-
+console.log(ReadableApi);
 const initialState = {
   categories: [],
 };
 
+// export const getAllCats = createAsyncThunk(
+//   "categories/getAllCats",
+//   async () => {
+//     const response = await ReadableApi.getAllCategories();
+//     return response;
+//   }
+// );
+
 export const getAllCats = createAsyncThunk("categories/getAllCats", () => {
-  return ReadableApi.getAllCategories()
-    .then((response) => response.json)
-    .catch((error) => {
-      "error", error;
-    });
+  async () => {
+    const response = await ReadableApi.getAllCategories();
+    return response;
+  };
 });
+console.log(getAllCats());
 const categoriesSlice = createSlice({
   name: "categories",
   initialState,
@@ -33,6 +41,6 @@ const categoriesSlice = createSlice({
   },
 });
 
-export const { getCategories } = categoriesSlice.actions;
+// export const { getCategories } = categoriesSlice.actions;
 console.log(categoriesSlice);
 export default categoriesSlice.reducer;

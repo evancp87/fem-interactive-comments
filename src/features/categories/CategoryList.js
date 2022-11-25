@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 // import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from "react-redux";
-
+import { getAllCats } from "./categoriesSlice";
 // import {Link} from "react-router-dom";
 // const categories = useSelector((state) => state.categories);
 
@@ -13,21 +13,21 @@ import Category from "./Category";
 // import {SiRedux} from "react-icons/si";
 
 function CategoryList() {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const categories = useSelector((state) => state.categories);
   console.log(categories);
-  // useEffect(() => dispatch(getCategories(categories)), [dispatch]);
-  // console.log(categories);
+  useEffect(() => dispatch(getAllCats()), [dispatch]);
 
   return (
     <div>
       <ul className="flex justify-center mt-3 space-x-4 ">
-        {categories.map((category) => (
-          <li key={category.id} className="flex flex-row">
-            {/* <Category category={category} /> */}
-            {category.name}
-          </li>
-        ))}
+        {categories &&
+          Object.keys(categories).map((category, i) => (
+            <li key={i} className="flex flex-row">
+              {/* <Category category={category} /> */}
+              {category.name}
+            </li>
+          ))}
       </ul>
     </div>
 

@@ -6,7 +6,7 @@ import Footer from "./components/Footer";
 import Post from "./features/posts/Post";
 import AddPost from "./features/posts/AddPost";
 import Error404 from "./features/screens/Error404";
-
+import CategoryList from "./features/categories/CategoryList";
 function App() {
   return (
     <div className="App flex flex-col justify-center">
@@ -14,6 +14,11 @@ function App() {
       <Router>
         <Routes>
           <Route exact path="/" element={<Dashboard />} />
+          <Route
+            exact
+            path="/category/:category"
+            component={<CategoryList />}
+          />
           <Route path="/not-found" element={<Error404 />} />
           <Route path="/add-post" element={<AddPost />} />
           <Route path="/edit-post:id" element={<AddPost />} />

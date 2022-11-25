@@ -22,7 +22,7 @@ function PostList() {
   return (
     <section className="mt-4 flex items-center flex-col">
       {posts &&
-        Object.keys(posts).map((post) => <div key={post.id}>{post.body}</div>)}
+        Object.keys(posts).map((post, i) => <div key={i}>{post.body}</div>)}
 
       <Post />
     </section>

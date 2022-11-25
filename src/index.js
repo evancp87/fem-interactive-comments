@@ -5,7 +5,7 @@ import App from "./App";
 // import { createStore } from "redux";
 import { Provider } from "react-redux";
 import store from "./store/store";
-
+console.log(store);
 import { getAllCats } from "./features/categories/categoriesSlice";
 import { receivePosts } from "./features/posts/postsSlice";
 
