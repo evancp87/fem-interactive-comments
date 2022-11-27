@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import React from "react";
+import React, { useEffect } from "react";
 import Nav from "./components/Nav";
 import Dashboard from "./features/screens/Dashboard";
 import Footer from "./components/Footer";
@@ -7,7 +7,15 @@ import Post from "./features/posts/Post";
 import AddPost from "./features/posts/AddPost";
 import Error404 from "./features/screens/Error404";
 import CategoryList from "./features/categories/CategoryList";
+import { useDispatch } from "react-redux";
+import { getAllCats } from "./features/categories/categoriesSlice";
+
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAllCats());
+  }, [dispatch]);
+
   return (
     <div className="App flex flex-col justify-center">
       <Nav />

@@ -9,62 +9,72 @@ const initialState = {
 
 export const receivePostsByCategory = createAsyncThunk(
   "posts/receivePostsByCategory",
-  (category) => {
-    return ReadableApi.getPostsByCategory(category)
-      .then((response) => response.json)
-      .catch((error) => {
-        "error", error;
-      });
+  async (category) => {
+    try {
+      const response = await ReadableApi.getPostsByCategory(category);
+      return response.json;
+    } catch (error) {
+      "error", error;
+    }
   }
 );
 
-export const receivePosts = createAsyncThunk("posts/receivePosts", () => {
-  return ReadableApi.getPosts()
-    .then((response) => response.json)
-    .catch((error) => {
-      "error", error;
-    });
+export const receivePosts = createAsyncThunk("posts/receivePosts", async () => {
+  try {
+    const response = await ReadableApi.getPosts();
+    return response;
+  } catch (error) {
+    "error", error;
+  }
 });
 
-export const getPostsById = createAsyncThunk("posts/getPost", (id) => {
-  return ReadableApi.getPostById(id)
-    .then((response) => response.json)
-    .catch((error) => {
-      "error", error;
-    });
+export const getPostsById = createAsyncThunk("posts/getPost", async (id) => {
+  try {
+    const response = await ReadableApi.getPostById(id);
+    return response.json;
+  } catch (error) {
+    "error", error;
+  }
 });
 
-export const addPost = createAsyncThunk("posts/addPost", (post) => {
-  return ReadableApi.addPost(post.id)
-    .then((response) => response.json)
-    .catch((error) => {
-      "error", error;
-    });
+export const addPost = createAsyncThunk("posts/addPost", async (post) => {
+  try {
+    const response = await ReadableApi.addPost(post.id);
+    return response.json;
+  } catch (error) {
+    "error", error;
+  }
 });
 
-export const removePost = createAsyncThunk("posts/removePost", (post) => {
-  return ReadableApi.deletePost(post)
-    .then((response) => response.json)
-    .catch((error) => {
-      "error", error;
-    });
+export const removePost = createAsyncThunk("posts/removePost", async (post) => {
+  try {
+    const response = await ReadableApi.deletePost(post);
+    return response.json;
+  } catch (error) {
+    "error", error;
+  }
 });
 
-export const updatePost = createAsyncThunk("posts/updatePost", (post) => {
-  return ReadableApi.editPost(post)
-    .then((response) => response.json)
-    .catch((error) => {
-      "error", error;
-    });
+export const updatePost = createAsyncThunk("posts/updatePost", async (post) => {
+  try {
+    const response = await ReadableApi.editPost(post);
+    return response.json;
+  } catch (error) {
+    "error", error;
+  }
 });
 
-export const voteOnPost = createAsyncThunk("posts/voteOnPost", (params) => {
-  return ReadableApi.votePost(params)
-    .then((response) => response.json)
-    .catch((error) => {
+export const voteOnPost = createAsyncThunk(
+  "posts/voteOnPost",
+  async (params) => {
+    try {
+      const response = await ReadableApi.votePost(params);
+      return response.json;
+    } catch (error) {
       "error", error;
-    });
-});
+    }
+  }
+);
 
 // TODO: for comment count
 // export const increaseCommentCount = createAsyncThunk(
@@ -146,34 +156,40 @@ const postsSlice = createSlice({
     //   };
     // },
   },
-  extraReducers(builder) {
-    builder.addCase(receivePostsByCategory.fulfilled, (state, action) => {
-      let posts = [...action.payload];
-      posts = posts.sort((a, b) => b.timestamp - a.timestamp);
-      return posts;
-    }),
-      builder.addCase(receivePosts.fulfilled, (state, action) => {
+  extraReducers: (builder) => {
+    builder
+      .addCase(receivePosts.fulfilled, (state, action) => {
+        // let posts = [...action.payload];
+        let posts = [action.payload];
+        console.log(action.payload);
+        posts = posts.sort((a, b) => b.timestamp - a.timestamp);
+        console.log(posts);
+        return posts;
+      })
+      .addCase(receivePostsByCategory.fulfilled, (state, action) => {
+        // let posts = [...action.payload];
         let posts = [...action.payload];
+
         posts = posts.sort((a, b) => b.timestamp - a.timestamp);
         return posts;
-      }),
-      builder.addCase(getPostsById.fulfilled, (state, action) => {
+      })
+      .addCase(getPostsById.fulfilled, (state, action) => {
         const { id } = action.payload;
         let post = state.find((post) => post.id === id);
         return post;
-      }),
-      builder.addCase(addPost.fulfilled, (state, action) => {
-        state.push(...action.payload);
-      }),
-      builder.addCase(removePost.fulfilled, (state, action) => {
+      })
+      .addCase(addPost.fulfilled, (state, action) => {
+        return [state, action.payload];
+      })
+      .addCase(removePost.fulfilled, (state, action) => {
         const { id } = action.payload;
         let removedPost = state.filter((post) => post.id !== id);
         return removedPost;
-      }),
-      builder.addCase(updatePost.fulfilled, (state, action) => {
+      })
+      .addCase(updatePost.fulfilled, (state, action) => {
         return [action.payload];
-      }),
-      builder.addCase(voteOnPost.fulfilled, (state, action) => {
+      })
+      .addCase(voteOnPost.fulfilled, (state, action) => {
         const { id, voteScore } = action.payload;
         let votedPost = state.find((post) => post.id === id);
         votedPost.voteScore = voteScore;

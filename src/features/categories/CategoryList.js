@@ -13,10 +13,12 @@ import Category from "./Category";
 // import {SiRedux} from "react-icons/si";
 
 function CategoryList() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   dispatch(getAllCats());
+  // }, [dispatch]);
   const categories = useSelector((state) => state.categories);
   console.log(categories);
-  useEffect(() => dispatch(getAllCats()), [dispatch]);
 
   return (
     <div>

@@ -9,5 +9,6 @@ export default configureStore({
     comments: commentsReducer,
     posts: postsReducer,
   },
+
   //   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });
