@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+
 // import {
 //   receivePosts,
 //   addPost,
@@ -15,15 +17,27 @@ import { useSelector, useDispatch } from "react-redux";
 import Post from "./Post";
 
 function PostList() {
-  const posts = useSelector((state) => state.posts);
+  const posts = useSelector((state) => state.posts[0]);
   console.log(posts);
-  const dispatch = useDispatch();
-  // useEffect(() => dispatch(receivePosts(posts)), [dispatch]);
+
   return (
     <section className="mt-4 flex items-center flex-col">
       {posts &&
-        Object.keys(posts).map((post, i) => <div key={i}>{post.body}</div>)}
-
+        posts.map((post, i) => (
+          <Link to={`/posts/${post.id}`}>
+            <Post
+              key={i}
+              timestamp={post.timestamp}
+              body={post.body}
+              author={post.author}
+              category={post.category}
+              voteScore={post.voteScore}
+              commentCount={post.commentCount}
+              title={post.title}
+            />
+          </Link>
+        ))}
+      {/* <div key={i}>{post.body}</div> */}
       <Post />
     </section>
     //   Object.keys(defaultData).map(post => <Post/>)

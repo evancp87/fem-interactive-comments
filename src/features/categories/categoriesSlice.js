@@ -42,7 +42,8 @@ const categoriesSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getAllCats.fulfilled, (state, action) => {
       // state.push(...action.payload);
-      [state, action.payload];
+      // [state, action.payload];
+      state.categories = state.categories.concat(action.payload);
       console.log(action);
       // state.categories = action.payload;
     });

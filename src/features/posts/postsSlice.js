@@ -31,7 +31,7 @@ export const receivePosts = createAsyncThunk("posts/receivePosts", async () => {
 export const getPostsById = createAsyncThunk("posts/getPost", async (id) => {
   try {
     const response = await ReadableApi.getPostById(id);
-    return response.json;
+    return response;
   } catch (error) {
     "error", error;
   }
@@ -40,7 +40,7 @@ export const getPostsById = createAsyncThunk("posts/getPost", async (id) => {
 export const addPost = createAsyncThunk("posts/addPost", async (post) => {
   try {
     const response = await ReadableApi.addPost(post.id);
-    return response.json;
+    return response;
   } catch (error) {
     "error", error;
   }
@@ -49,7 +49,7 @@ export const addPost = createAsyncThunk("posts/addPost", async (post) => {
 export const removePost = createAsyncThunk("posts/removePost", async (post) => {
   try {
     const response = await ReadableApi.deletePost(post);
-    return response.json;
+    return response;
   } catch (error) {
     "error", error;
   }
@@ -58,7 +58,7 @@ export const removePost = createAsyncThunk("posts/removePost", async (post) => {
 export const updatePost = createAsyncThunk("posts/updatePost", async (post) => {
   try {
     const response = await ReadableApi.editPost(post);
-    return response.json;
+    return response;
   } catch (error) {
     "error", error;
   }
@@ -69,7 +69,7 @@ export const voteOnPost = createAsyncThunk(
   async (params) => {
     try {
       const response = await ReadableApi.votePost(params);
-      return response.json;
+      return response;
     } catch (error) {
       "error", error;
     }

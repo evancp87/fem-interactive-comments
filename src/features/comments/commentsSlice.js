@@ -9,65 +9,73 @@ const initialState = {
 
 export const receiveComments = createAsyncThunk(
   "comments/receiveComments",
-  (id) => {
-    return ReadableApi.getCommentsByPostId(id)
-      .then((response) => response.json)
-      .catch((error) => {
-        "error", error;
-      });
+  async (id) => {
+    try {
+      const response = await ReadableApi.getCommentsByPostId(id);
+      return response;
+    } catch (error) {
+      console.log("error", error);
+    }
   }
 );
 
 export const commentDetail = createAsyncThunk(
   "comments/commentDetail",
-  (id) => {
-    return ReadableApi.getCommentDetail(id)
-      .then((response) => response.json)
-      .then((data) => data);
+  async (id) => {
+    try {
+      const response = await ReadableApi.getCommentDetail(id);
+      return response;
+    } catch (error) {
+      console.log("error", error);
+    }
   }
 );
 
 export const addComment = createAsyncThunk(
   "comments/addComment",
-  (newComment) => {
-    return ReadableApi.addComment(newComment)
-      .then((response) => response.json)
-      .catch((error) => {
-        "error", error;
-      });
+  async (newComment) => {
+    try {
+      const response = await ReadableApi.addComment(newComment);
+      return response;
+    } catch (error) {
+      console.log("error", error);
+    }
   }
 );
 
 export const updateComment = createAsyncThunk(
   "comments/updateComment",
-  (comment) => {
-    return ReadableApi.editComment(comment)
-      .then((response) => response.json)
-      .catch((error) => {
-        "error", error;
-      });
+  async (comment) => {
+    try {
+      const response = await ReadableApi.editComment(comment);
+      return response;
+    } catch (error) {
+      "error", error;
+    }
   }
 );
 
 export const removeComment = createAsyncThunk(
   "categories/removeComment",
-  (comment) => {
-    return ReadableApi.deleteComment(comment)
-      .then((response) => response.json)
-      .catch((error) => {
-        "error", error;
-      });
+  async (comment) => {
+    try {
+      const response = await ReadableApi.deleteComment(comment);
+      return response;
+    } catch (error) {
+      "error", error;
+    }
   }
 );
 
 export const voteOnComment = createAsyncThunk(
   "categories/voteOnComment",
-  (params) => {
-    return ReadableApi.voteComment(params)
-      .then((response) => response.json)
-      .catch((error) => {
-        "error", error;
-      });
+  async (params) => {
+    try {
+      const response = await ReadableApi.voteComment(params);
+      return response;
+    } catch (error) {
+      "error", error;
+    }
   }
 );
 

@@ -1,18 +1,10 @@
 import React from "react";
-// import {RECEIVE_CATEGORIES} from "../actions/categories";
-function Category() {
-  // const categories = useSelector(state => state.categories)
-  // const showCategories = () => {
-  //   useEffect
-  // }
+
+function Category(props) {
   return (
-    <div>
-      <img
-        className="justify-center rounded-full w-3 h-3 "
-        src="https://images.pexels.com/photos/13366951/pexels-photo-13366951.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load"
-      />
+    <div className=" px-6 py-2 bg-slate-200 hover:bg-slate-100 border-solid  border-red-200 border-4">
+      {props.name}
     </div>
   );
 }
-
 export default Category;

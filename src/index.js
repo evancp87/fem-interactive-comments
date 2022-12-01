@@ -7,10 +7,10 @@ import store from "./store/store";
 import { getAllCats } from "./features/categories/categoriesSlice";
 import { receivePosts } from "./features/posts/postsSlice";
 
-console.log(store.dispatch(getAllCats()));
-console.log(store.dispatch(receivePosts()));
-store.dispatch(getAllCats());
-store.dispatch(receivePosts());
+// console.log(store.dispatch(getAllCats()));
+// console.log(store.dispatch(receivePosts()));
+// store.dispatch(getAllCats());
+// store.dispatch(receivePosts());
 
 ReactDOM.render(
   <Provider store={store}>
