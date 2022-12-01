@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-// const url = "htt[://localhost:3001";
+
 // import data from api and put as value in initial state
 import * as ReadableApi from "../../utils/ReadableApi";
 
@@ -12,7 +12,7 @@ export const receivePostsByCategory = createAsyncThunk(
   async (category) => {
     try {
       const response = await ReadableApi.getPostsByCategory(category);
-      return response.json;
+      return response;
     } catch (error) {
       "error", error;
     }
@@ -174,6 +174,8 @@ const postsSlice = createSlice({
         return posts;
       })
       .addCase(getPostsById.fulfilled, (state, action) => {
+        // return [action.payload];
+
         const { id } = action.payload;
         let post = state.find((post) => post.id === id);
         return post;
@@ -197,6 +199,6 @@ const postsSlice = createSlice({
   },
 });
 
-export const { getCategories } = postsSlice.actions;
+// export const { getCategories } = postsSlice.actions;
 console.log(postsSlice);
 export default postsSlice.reducer;
