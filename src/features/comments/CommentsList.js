@@ -1,21 +1,23 @@
 import React, { useEffect } from "react";
-import Comment from "../../components/Comment";
+import Comment from "./Comment";
+import { receiveComments } from "./commentsSlice";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  receiveComments,
-  addComment,
-  removeComments,
-  updateComments,
-  voteComment,
-} from "../../actions/commentsActions";
-function CommentsList() {
-  const comments = useSelector((state) => state.comments);
+
+function CommentsList({ postId }) {
+  const parentId = postId.id;
+  let comments = useSelector((state) => state.comments);
+  console.log(comments);
+
   const dispatch = useDispatch();
-  useEffect(() => dispatch(receiveComments(comments)), [dispatch]);
+  console.log(postId);
+  console.log(parentId);
+
+  useEffect(() => dispatch(receiveComments(parentId)), [dispatch, parentId]);
 
   return (
     <div className="items-center flex ">
-      <Comment />
+      {/* <Comment comments={comments} /> */}
+      {comments && comments.map((comment) => <Comment comment={comment} />)}
     </div>
     //   Object.keys(defaultData).map(comment => <Comment/>)
   );
