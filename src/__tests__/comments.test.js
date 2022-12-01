@@ -1,87 +1,32 @@
-import * as commentState from "../features/categories/commentsSlice";
+import store from "../store/store";
 
-describe("Comment reducer", () => {
-  test("reducers", () => {
-    let state;
-    state = reducers(
-      {
-        categories: {
-          categories: [
-            { name: "react", path: "react" },
-            { name: "redux", path: "redux" },
-            { name: "udacity", path: "udacity" },
-          ],
-        },
-        comments: { comments: [] },
-        posts: { posts: [] },
-      },
-      {
-        type: "posts/receivePosts/fulfilled",
-        payload: [
-          {
-            id: "8xf0y6ziyjabvozdd253nd",
-            timestamp: 1467166872634,
-            title: "Udacity is the best place to learn React",
-            body: "Everyone says so after all.",
-            author: "thingtwo",
-            category: "react",
-            voteScore: 6,
-            deleted: false,
-            commentCount: 2,
-          },
-          {
-            id: "6ni6ok3ym7mf1p33lnez",
-            timestamp: 1468479767190,
-            title: "Learn Redux in 10 minutes!",
-            body: "Just kidding. It takes more than 10 minutes to learn technology.",
-            author: "thingone",
-            category: "redux",
-            voteScore: -5,
-            deleted: false,
-            commentCount: 0,
-          },
-        ],
-        meta: {
-          requestId: "n4HnWj8-PeaJjbVfTToYM",
-          requestStatus: "fulfilled",
-        },
-      }
-    );
-    expect(state).toEqual({
-      categories: {
-        categories: [
-          { name: "react", path: "react" },
-          { name: "redux", path: "redux" },
-          { name: "udacity", path: "udacity" },
-        ],
-      },
-      comments: { comments: [] },
-      posts: [
-        [
-          {
-            id: "8xf0y6ziyjabvozdd253nd",
-            timestamp: 1467166872634,
-            title: "Udacity is the best place to learn React",
-            body: "Everyone says so after all.",
-            author: "thingtwo",
-            category: "react",
-            voteScore: 6,
-            deleted: false,
-            commentCount: 2,
-          },
-          {
-            id: "6ni6ok3ym7mf1p33lnez",
-            timestamp: 1468479767190,
-            title: "Learn Redux in 10 minutes!",
-            body: "Just kidding. It takes more than 10 minutes to learn technology.",
-            author: "thingone",
-            category: "redux",
-            voteScore: -5,
-            deleted: false,
-            commentCount: 0,
-          },
-        ],
-      ],
-    });
+describe("comments redux state tests", () => {
+  it("Should initially set comments to an empty array", () => {
+    const state = store.getState().comments;
+    expect(state.comments).toEqual([]);
+  });
+});
+
+const id = "8xf0y6ziyjabvozdd253nd";
+const getAllPosts = ReadableApi.getPosts(id);
+// This is the function we'll be testing
+
+// This is the section where we mock `fetch`
+const fetchMock = jest
+  .spyOn(global, "fetch")
+  .mockImplementation(() =>
+    Promise.resolve({ json: () => Promise.resolve([]) })
+  );
+
+describe("get all posts", () => {
+  test("works", async () => {
+    const json = await getAllPosts;
+
+    // highlight-start
+    expect(fetchMock).toHaveBeenCalledWith("http://localhost:3001/posts");
+    // highlight-end
+
+    expect(Array.isArray(json)).toEqual(true);
+    expect(json.length).toEqual(2);
   });
 });

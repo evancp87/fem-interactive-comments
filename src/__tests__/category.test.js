@@ -1,87 +1,73 @@
-import * as categoryState from "../features/categories/categoriesSlice";
+import store from "../store/store";
+// import * as ReadableApi from "../utils/ReadableApi";
+const middlewares = [thunk];
+export const mockStore = configureMockStore(middlewares);
 
-describe("Category reducer", () => {
-  test("reducers", () => {
-    let state;
-    state = reducers(
+describe("category redux state tests", () => {
+  it("Should initially set categories to an empty array", () => {
+    const state = store.getState().categories;
+    expect(state.categories).toEqual([]);
+  });
+});
+
+describe("ACTION TESTS", () => {
+  it("should fetch an array of categories", () => {
+    const user = { id: 1, name: "John", age: 20 };
+    const expectedActions = [
       {
-        categories: {
-          categories: [
-            { name: "react", path: "react" },
-            { name: "redux", path: "redux" },
-            { name: "udacity", path: "udacity" },
-          ],
-        },
-        comments: { comments: [] },
-        posts: { posts: [] },
+        type: fetchUser.pending.type,
       },
       {
-        type: "posts/receivePosts/fulfilled",
-        payload: [
-          {
-            id: "8xf0y6ziyjabvozdd253nd",
-            timestamp: 1467166872634,
-            title: "Udacity is the best place to learn React",
-            body: "Everyone says so after all.",
-            author: "thingtwo",
-            category: "react",
-            voteScore: 6,
-            deleted: false,
-            commentCount: 2,
-          },
-          {
-            id: "6ni6ok3ym7mf1p33lnez",
-            timestamp: 1468479767190,
-            title: "Learn Redux in 10 minutes!",
-            body: "Just kidding. It takes more than 10 minutes to learn technology.",
-            author: "thingone",
-            category: "redux",
-            voteScore: -5,
-            deleted: false,
-            commentCount: 0,
-          },
-        ],
-        meta: {
-          requestId: "n4HnWj8-PeaJjbVfTToYM",
-          requestStatus: "fulfilled",
-        },
-      }
-    );
-    expect(state).toEqual({
-      categories: {
-        categories: [
-          { name: "react", path: "react" },
-          { name: "redux", path: "redux" },
-          { name: "udacity", path: "udacity" },
-        ],
+        type: action_A.type,
+        payload: {},
       },
-      comments: { comments: [] },
-      posts: [
-        [
-          {
-            id: "8xf0y6ziyjabvozdd253nd",
-            timestamp: 1467166872634,
-            title: "Udacity is the best place to learn React",
-            body: "Everyone says so after all.",
-            author: "thingtwo",
-            category: "react",
-            voteScore: 6,
-            deleted: false,
-            commentCount: 2,
-          },
-          {
-            id: "6ni6ok3ym7mf1p33lnez",
-            timestamp: 1468479767190,
-            title: "Learn Redux in 10 minutes!",
-            body: "Just kidding. It takes more than 10 minutes to learn technology.",
-            author: "thingone",
-            category: "redux",
-            voteScore: -5,
-            deleted: false,
-            commentCount: 0,
-          },
-        ],
-      ],
+      {
+        type: fetchUser.fulfilled.type,
+        payload: user,
+      },
+    ];
+    const store = mockStore({});
+    // mock API returns
+    jest
+      .spyOn(importFile, "getUserById")
+      .mockImplementation(() => Promise.resolve(user));
+    return store.dispatch(fetchUser({ id: 1 })).then(() => {
+      expect(
+        store.getActions().map((action) => ({
+          type: action.type,
+          payload: action.payload,
+        }))
+      ).toEqual(expectedActions);
+    });
+  });
+
+  it("should fetchUser: age < 18", () => {
+    const user = { id: 2, name: "Jack", age: 16 };
+    const expectedActions = [
+      {
+        type: fetchUser.pending.type,
+      },
+      {
+        type: fetchUser.fulfilled.type,
+        payload: user,
+      },
+    ];
+    const store = mockStore({});
+    // mock API returns
+    jest
+      .spyOn(importFile, "getUserById")
+      .mockImplementation(() => Promise.resolve(user));
+    return store.dispatch(fetchUser({ id: 2 })).then(() => {
+      expect(
+        store.getActions().map((action) => ({
+          type: action.type,
+          payload: action.payload,
+        }))
+      ).toEqual(expectedActions);
     });
   });
 });
+
+// https://fabiomarcoccia.medium.com/redux-toolkit-test-slice-and-actions-a6e88dfecb03
+// https://egghead.io/lessons/redux-mocking-out-our-api-helper-with-jest-mock
+// https://javascript.plainenglish.io/how-to-test-your-redux-api-calls-with-jest-64ebdd9c0034
