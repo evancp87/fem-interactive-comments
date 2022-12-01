@@ -91,30 +91,31 @@ const commentsSlice = createSlice({
     //   };
     // },
   },
-  extraReducers(builder) {
-    builder.addCase(receiveComments.fulfilled, (state, action) => {
-      let comments = [...action.payload];
-      comments = comments.sort((a, b) => b.timestamp - a.timestamp);
-      return comments;
-    }),
-      builder.addCase(commentDetail.fulfilled, (state, action) => {
+  extraReducers: (builder) => {
+    builder
+      .addCase(receiveComments.fulfilled, (state, action) => {
+        let comments = [...action.payload];
+        comments = comments.sort((a, b) => b.timestamp - a.timestamp);
+        return comments;
+      })
+      .addCase(commentDetail.fulfilled, (state, action) => {
         const { id } = action.payload;
         let comment = state.find((comment) => comment.id === id);
         return comment;
-      }),
-      builder.addCase(addComment.fulfilled, (state, action) => {
+      })
+      .addCase(addComment.fulfilled, (state, action) => {
         state.push(...action.payload);
         state.sort((a, b) => b.timestamp - a.timestamp);
-      }),
-      builder.addCase(updateComment.fulfilled, (state, action) => {
+      })
+      .addCase(updateComment.fulfilled, (state, action) => {
         return [action.payload];
-      }),
-      builder.addCase(removeComment.fulfilled, (state, action) => {
+      })
+      .addCase(removeComment.fulfilled, (state, action) => {
         const { id } = action.payload;
         let removedComments = state.filter((comment) => comment.id !== id);
         return removedComments;
-      }),
-      builder.addCase(voteOnComment.fulfilled, (state, action) => {
+      })
+      .addCase(voteOnComment.fulfilled, (state, action) => {
         const { id, voteScore } = action.payload;
         let votedComment = state.find((comment) => comment.id === id);
         votedComment.voteScore = voteScore;
@@ -122,6 +123,6 @@ const commentsSlice = createSlice({
   },
 });
 
-export const { getCategories } = commentsSlice.actions;
+// export const { getCategories } = commentsSlice.actions;
 console.log(commentsSlice);
 export default commentsSlice.reducer;
