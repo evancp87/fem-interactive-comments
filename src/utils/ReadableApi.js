@@ -58,7 +58,10 @@ console.log(getAllCategories());
 
 // get /categories/posts
 export const getPostsByCategory = async (category) => {
-  const response = await fetch(`${api}/${category}/posts`, requestOptions);
+  const response = await fetch(
+    `${api}/categories/${category}/`,
+    requestOptions
+  );
 
   const catPosts = await response.json();
   return catPosts;
@@ -163,11 +166,14 @@ export const deletePost = async (post) => {
 
 console.log(deletePost("8xf0y6ziyjabvozdd253nd"));
 // get posts/:id/comments
-export const getCommentsByPostId = (id) => {
-  fetch(`${api}/posts/${id}/comments`, requestOptions)
-    .then((response) => response.json())
-    .then((data) => data)
-    .catch((error) => console.log("error", error));
+export const getCommentsByPostId = async (id) => {
+  try {
+    const response = await fetch(`${api}/posts/${id}/comments`, requestOptions);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    return console.log("error", error);
+  }
 };
 console.log(getCommentsByPostId("8xf0y6ziyjabvozdd253nd"));
 
