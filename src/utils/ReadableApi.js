@@ -58,13 +58,14 @@ console.log(getAllCategories());
 
 // get /categories/posts
 export const getPostsByCategory = async (category) => {
-  const response = await fetch(
-    `${api}/categories/${category}/`,
-    requestOptions
-  );
+  try {
+    const response = await fetch(`${api}/${category}/posts`, requestOptions);
 
-  const catPosts = await response.json();
-  return catPosts;
+    const catPosts = await response.json();
+    return catPosts;
+  } catch (error) {
+    console.log("error:", error);
+  }
 };
 
 console.log(getPostsByCategory("react"));
@@ -115,7 +116,15 @@ export const addPost = async (params) => {
   // .then((data) => data);
 };
 
-console.log(addPost());
+console.log(
+  addPost({
+    timestamp: Date.now(),
+    title: "hello",
+    body: "gello",
+    author: "hello",
+    category: "hello",
+  })
+);
 // post /posts/:id
 
 export const votePost = async (params) => {
