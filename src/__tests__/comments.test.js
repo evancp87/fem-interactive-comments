@@ -1,32 +1,62 @@
 import store from "../store/store";
-
-describe("comments redux state tests", () => {
-  it("Should initially set comments to an empty array", () => {
-    const state = store.getState().comments;
-    expect(state.comments).toEqual([]);
-  });
+import * as ReadableApi from "../utils/ReadableApi";
+import { screen, waitFor, render } from "@testing-library/react";
+import { server } from "../mocks/server";
+import reducer, {
+  initialState,
+  receiveComments,
+  addComment,
+  editComment,
+} from "../features/comments/commentsSlice";
+import {
+  editCommentResponse,
+  addCommentResponse,
+  deleteCommentResponse,
+} from "../mocks/mocks";
+beforeAll(() => {
+  server.listen();
 });
 
-const id = "8xf0y6ziyjabvozdd253nd";
-const getAllPosts = ReadableApi.getPosts(id);
-// This is the function we'll be testing
+afterEach(() => {
+  server.resetHandlers();
+});
 
-// This is the section where we mock `fetch`
-const fetchMock = jest
-  .spyOn(global, "fetch")
-  .mockImplementation(() =>
-    Promise.resolve({ json: () => Promise.resolve([]) })
-  );
+afterAll(() => {
+  server.close();
+});
 
-describe("get all posts", () => {
-  test("works", async () => {
-    const json = await getAllPosts;
-
-    // highlight-start
-    expect(fetchMock).toHaveBeenCalledWith("http://localhost:3001/posts");
-    // highlight-end
-
-    expect(Array.isArray(json)).toEqual(true);
-    expect(json.length).toEqual(2);
+describe("Posts Redux Toolkit state", () => {
+  it("Should be able to fetch an array of comments", async () => {
+    const result = await store.dispatch(receiveComments());
+    const comments = await result.payload;
+    expect(result.type).toBe("posts/receiveComments/fulfilled");
+    expect(comments).toEqual(getCommentsResponse);
   });
+  it("Should be able to create a new Comment", async () => {
+    // Saving previous state
+    const previousState = store.getState().comments;
+
+    const previousComment = [previousState.comments];
+    previousComment.push(addComment);
+
+    // Dispatching the action
+
+    const result = await store.dispatch(addComment(addCommentResponse));
+
+    const comment = result.payload;
+
+    expect(result.type).toBe("posts/addComment/fulfilled");
+    expect(comment).toEqual(addCommentResponse);
+
+    const state = store.getState().comments;
+
+    expect(state.comments).toEqual(previousComment);
+  }),
+    it("should edit an existing comment", async () => {}),
+    it("should delete an existing comment", async () => {
+      const id = req.params.id;
+      const deletedPost = await store.dispatch(
+        deleteComment(deleteCommentResponse)
+      );
+    });
 });
