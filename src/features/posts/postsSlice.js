@@ -39,7 +39,7 @@ export const getPostsById = createAsyncThunk("posts/getPost", async (id) => {
 
 export const addPost = createAsyncThunk("posts/addPost", async (post) => {
   try {
-    const response = await ReadableApi.addPost(post.id);
+    const response = await ReadableApi.addPost(post);
     return response;
   } catch (error) {
     "error", error;
@@ -160,7 +160,7 @@ const postsSlice = createSlice({
     builder
       .addCase(receivePosts.fulfilled, (state, action) => {
         // let posts = [...action.payload];
-        let posts = [action.payload];
+        let posts = [...action.payload];
         console.log(action.payload);
         posts = posts.sort((a, b) => b.timestamp - a.timestamp);
         console.log(posts);
@@ -181,15 +181,17 @@ const postsSlice = createSlice({
         return post;
       })
       .addCase(addPost.fulfilled, (state, action) => {
-        return [state, action.payload];
+        return [...state, action.payload];
       })
       .addCase(removePost.fulfilled, (state, action) => {
         const { id } = action.payload;
+        console.log(action.payload);
         let removedPost = state.filter((post) => post.id !== id);
         return removedPost;
+        // return [...state, action.payload];
       })
       .addCase(updatePost.fulfilled, (state, action) => {
-        return [action.payload];
+        return [...state, action.payload];
       })
       .addCase(voteOnPost.fulfilled, (state, action) => {
         const { id, voteScore } = action.payload;

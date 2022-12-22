@@ -11,8 +11,8 @@ function AddPostForm() {
   const [category, setCategory] = useState("");
   const [disabled, setDisabled] = useState(true);
 
-  const categories = useSelector((state) => state.categories.categories);
-
+  const categories = useSelector((state) => state.categories);
+  console.log(categories);
   const onChangeTitle = (e) => {
     setTitle(e.target.value);
   };

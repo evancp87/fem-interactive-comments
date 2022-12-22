@@ -43,9 +43,11 @@ const categoriesSlice = createSlice({
     builder.addCase(getAllCats.fulfilled, (state, action) => {
       // state.push(...action.payload);
       // [state, action.payload];
-      state.categories = state.categories.concat(action.payload);
-      console.log(action);
+      // state.categories = state.categories.concat(action.payload);
+      // console.log(action);
       // state.categories = action.payload;
+      let categories = [...action.payload];
+      return categories;
     });
   },
 });

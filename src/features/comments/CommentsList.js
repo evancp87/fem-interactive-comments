@@ -15,7 +15,7 @@ function CommentsList({ postId }) {
   useEffect(() => dispatch(receiveComments(parentId)), [dispatch, parentId]);
 
   return (
-    <div className="items-center flex ">
+    <div className="items-center flex flex-col">
       {/* <Comment comments={comments} /> */}
       {comments && comments.map((comment) => <Comment comment={comment} />)}
     </div>

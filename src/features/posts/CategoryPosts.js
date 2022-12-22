@@ -10,7 +10,7 @@ function CategoryPosts() {
   const { category } = useParams();
   console.log(category);
   const posts = useSelector((state) =>
-    state.posts[0].filter((post) => post.category === category)
+    state.posts.filter((post) => post.category === category)
   );
 
   useEffect(
@@ -19,7 +19,7 @@ function CategoryPosts() {
   );
 
   return (
-    <div>
+    <div className="min-h-screen bg-blue-200">
       <CategoryList />
       {posts ? <Post posts={posts} /> : <p>No posts</p>}
     </div>

@@ -1,9 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { formatDate } from "../../utils/helpers";
+import DeleteButton from "./DeleteButton";
+import EditButton from "../../components/EditButton";
+import EditPost from "./EditPost";
 
-// import DeleteButton from "./DeleteButton";
-// import EditButton from "./EditButton";
-
+console.log(formatDate(1467166872634));
 import Vote from "../../components/Vote";
 function Post({ posts }) {
   console.log({ posts });
@@ -13,7 +15,7 @@ function Post({ posts }) {
         posts.map((post, i) => (
           <div
             key={i}
-            className="max-w-6xl mb-4 shadow-xl w-[200px] hover:shadow-2xl sm:w-[300px] md:w-[500px] lg:w-[900px] h-auto rounded-md bg-slate-100 h-50 p-2.5 flex mx-auto flex-col sm:flex-row md:flex-row lg:flex-row justify-between space-x-4  "
+            className="max-w-6xl mt-4 mb-4 shadow-xl w-[200px] hover:shadow-2xl sm:w-[300px] md:w-[500px] lg:w-[900px] h-auto rounded-md bg-slate-100 h-50 p-2.5 flex mx-auto flex-col sm:flex-row md:flex-row lg:flex-row justify-between space-x-4    "
           >
             <div className="flex flex-row">
               <Vote voteScore={post.voteScore} />
@@ -28,7 +30,7 @@ function Post({ posts }) {
                   <p className="text-sm ">
                     {post.author ? post.author : "no author"}
                   </p>
-                  <p className=" text-sm">{post.timestamp}</p>
+                  <p className=" text-sm">{formatDate(post.timestamp)}</p>
                   <p className=" text-sm">{post.category}</p>
                 </div>
                 {/* <Link
@@ -43,7 +45,11 @@ function Post({ posts }) {
               </div>
             </div>
             <div className="space-x-3 mt-4 flex-row flex sm:mt-0  md:mt-0 lg:mt-0 sm:flex-col  md:flex-col lg:flex-col justify-between items-center ">
-              <p className="text-sm"> {post.commentCount}</p>
+              <p className="text-sm"> {`${post.commentCount} comments`}</p>
+              <DeleteButton />
+              <Link to={`/edit-post:${post.id}`}>
+                <EditButton />
+              </Link>
             </div>
           </div>
         ))}

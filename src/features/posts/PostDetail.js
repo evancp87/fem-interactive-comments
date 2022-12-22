@@ -9,12 +9,14 @@ import { useParams, Navigate } from "react-router-dom";
 function PostDetail() {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const posts = useSelector((state) => state);
+  const posts = useSelector((state) => state.posts);
   console.log(posts);
   const postId = useSelector((state) =>
-    state.posts[0].find((post) => post.id === id)
+    state.posts.find((post) => post.id === id)
   );
-  useEffect(() => dispatch(getPostsById(id)), [dispatch, id]);
+  useEffect(() => {
+    dispatch(getPostsById(id));
+  }, [dispatch, id]);
 
   console.log(postId);
 

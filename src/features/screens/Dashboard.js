@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import CategoryList from "../categories/CategoryList";
 import PostList from "../posts/PostList";
 import Filters from "../../components/Filters";
 import { MdAddCircle } from "react-icons/md";
+import AddPostForm from "../posts/AddPostForm";
+// const [modal, setModal] = useState(false);
 
+// const openModal = () => {
+//   setModal(!modal);
+// };
 function Dashboard() {
   return (
     <div className="bg-blue-200 min-h-screen">
@@ -15,6 +20,7 @@ function Dashboard() {
           <MdAddCircle />
         </button>
       </div>
+      <AddPostForm />
     </div>
   );
 }

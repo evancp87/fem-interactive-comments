@@ -11,7 +11,8 @@ import Category from "./Category";
 
 function CategoryList() {
   // const dispatch = useDispatch();
-  const categories = useSelector((state) => state.categories.categories);
+  const categories = useSelector((state) => state.categories);
+  // const categories = useSelector((state) => state.categories.categories);
 
   console.log(categories);
 

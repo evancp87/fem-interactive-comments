@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 // import React, { useState, useSelector, useDispatch } from "react";
 // import Modal from "./Modal";
@@ -6,7 +6,7 @@ import React from "react";
 function AddPost() {
   return (
     <div>
-      <button>+</button>
+      <button onClick={openPostModal}>+</button>
     </div>
   );
 }
