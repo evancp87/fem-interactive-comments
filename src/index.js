@@ -3,18 +3,13 @@ import ReactDOM from "react-dom";
 import "../src/index.css";
 import App from "./App";
 import { Provider } from "react-redux";
-import store from "./store/store";
-import { getAllCats } from "./features/categories/categoriesSlice";
-import { receivePosts } from "./features/posts/postsSlice";
-
-// console.log(store.dispatch(getAllCats()));
-// console.log(store.dispatch(receivePosts()));
-// store.dispatch(getAllCats());
-// store.dispatch(receivePosts());
-
+import { store, persistor } from "./store/store";
+import { PersistGate } from "redux-persist/integration/react";
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <PersistGate loading={null} persistor={persistor}>
+      <App />
+    </PersistGate>
   </Provider>,
   document.getElementById("root")
 );
