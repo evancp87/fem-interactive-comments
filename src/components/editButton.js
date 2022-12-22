@@ -1,7 +1,7 @@
 import React from "react";
 
 function EditButton() {
-  return <div></div>;
+  return <div>Edit</div>;
 }
 
 export default EditButton;

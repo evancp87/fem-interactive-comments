@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Search from "./Search";
+// import { Link } from "react-router-dom";
 
 function Nav() {
   return (
@@ -8,6 +9,7 @@ function Nav() {
         <div className=" flex md:text-4xl lg:text-4xl ml-2 text-lg flex-row ">
           Readable
         </div>
+
         <Search />
       </div>
 
